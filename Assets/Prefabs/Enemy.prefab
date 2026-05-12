@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   Target: {fileID: 0}
   Speed: 4
-  TurnSpeed: 1080
+  TurnSpeed: 720
 --- !u!1001 &7902621644251481456
 PrefabInstance:
   m_ObjectHideFlags: 0
