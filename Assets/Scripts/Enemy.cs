@@ -19,15 +19,18 @@ public class Enemy : MonoBehaviour{
     void Update()
     {
         if (Target == null) return;
-        Vector3 directionToTarget = Target.transform.position - transform.position;
-        directionToTarget.Normalize();
-        float rightDot = Vector3.Dot(transform.right,directionToTarget);
+        Vector3 directionToTarget = Target.transform.position - transform.position; 
+        directionToTarget.Normalize(); // Richtung zum Ziel-Wegpunkt
+        float rightDot = Vector3.Dot(transform.right,directionToTarget); // Dot product:
+        // Nahe 0: Etwa vor uns
+        // Positiv: Ziel ist rechts
+        // Negativ: Ziel ist links
         if (Mathf.Abs(rightDot)<0.05f){
             transform.LookAt(Target.transform.position);
         }
         else{
             float sign = rightDot > 0 ? 1 : -1;
-            transform.Rotate(0,sign * TurnSpeed * Time.deltaTime,0);
+            transform.Rotate(0,sign * TurnSpeed * Time.deltaTime,0); // Entsprechend links oder rechts rotieren, abhängig vom Vorzeichen(sign)
         }
         transform.Translate(Vector3.forward * (Speed * Time.deltaTime)); //Vorwärts bewegen
         if (Vector3.Distance(transform.position, Target.transform.position) <= 0.1f){
