@@ -44,7 +44,14 @@ public class Enemy : MonoBehaviour{
         // Prüfen ob wir am Ziel vorbei sind UND nah dran:
         float fwDot = Vector3.Dot(transform.forward, directionToTarget);
         if (Vector3.Distance(transform.position, Target.transform.position) < 1 && fwDot < 0){
-            
+            if (Target.IsEnd){
+                Destroy(gameObject);
+                // TODO Event callen
+            }
+            else{
+                Target = Target.Next; // Ändere das Ziel auf das nächste
+                //transform.LookAt(Target.transform.position); // Drehe zum nächsten Ziel
+            }
         }
     }
 }
