@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour{
     void Update()
     {
         if (_nextSpawnTime <= Time.time){ // Wenn der nächste Spawn-Zeitpunkt vergangen ist:
-            _nextSpawnTime = Time.time + 0.5f;
+            _nextSpawnTime = Time.time + 2f;
             var newSpawn = Instantiate(EnemyPrefab, transform.position, Quaternion.identity);
             newSpawn.GetComponent<Enemy>().Target = FirstNode;
         }
