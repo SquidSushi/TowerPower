@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5420741430802565734}
   - component: {fileID: 8569186248350935842}
   - component: {fileID: 5909148681383451318}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 5747962188721828980}
   - component: {fileID: 3985026801480372194}
   - component: {fileID: 4855647874532094351}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eye (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 5694795173499485406}
   - component: {fileID: 8599413025647392468}
   - component: {fileID: 8110364176355072308}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   Target: {fileID: 0}
-  Speed: 4
+  Speed: 1
   TurnSpeed: 720
 --- !u!135 &8599413025647392468
 SphereCollider:
@@ -329,6 +329,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 974cf6ad7a772174cb447600ed0a6260, type: 3}
       propertyPath: m_Name
       value: enemy-ufo-c
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 974cf6ad7a772174cb447600ed0a6260, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

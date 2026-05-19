@@ -23,7 +23,6 @@ public class Tower : MonoBehaviour{
             if (target){ //Implizierter null check
                 transform.LookAt(target.transform.position);
                 Shoot(target); 
-                
             }
             else{
                 _attackCooldown += 0.1f; 
@@ -35,7 +34,7 @@ public class Tower : MonoBehaviour{
 
     private Enemy AcquireFirstTarget(){
         // Todo: Mit Layern Kollisionserkennung optimieren.
-        var collidersInRange = Physics.OverlapSphere(transform.position, Range);
+        var collidersInRange = Physics.OverlapSphere(transform.position, Range,  LayerMask.GetMask("Enemies"));
         Enemy targetCandidate = null;
         // Erstmal suchen wir den nächstbesten Enemy
         foreach (var collider in collidersInRange){
