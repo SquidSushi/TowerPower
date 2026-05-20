@@ -9,6 +9,9 @@ public class Enemy : MonoBehaviour{
     public float Speed;
     public float TurnSpeed = 1080;
 
+    [SerializeField]
+    private int _health = 10;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         if (Target != null){
@@ -62,5 +65,20 @@ public class Enemy : MonoBehaviour{
                 //transform.LookAt(Target.transform.position); // Drehe zum nächsten Ziel
             }
         }
+    }
+
+    public void DealDamage(int incomingDamage){
+        int wouldBeHealth = _health - incomingDamage;
+        if (wouldBeHealth < 0){
+            wouldBeHealth = 0;
+        }
+        Debug.Log($"Enemy took damage. " +
+                  $"Incoming Damage: {incomingDamage}, Health before: {_health}, Health after: {wouldBeHealth}");
+        if (wouldBeHealth == 0){
+            Destroy(gameObject);
+            return;
+        }
+
+        _health = wouldBeHealth;
     }
 }
