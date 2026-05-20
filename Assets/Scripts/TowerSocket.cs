@@ -1,16 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class TowerSocket : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+public class TowerSocket : MonoBehaviour{
+    public GameObject HeldTower;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void OnDrawGizmos(){
+        Gizmos.color = HeldTower ? Color.red : Color.green;
+        Gizmos.DrawWireCube(transform.position, Vector3.one * 0.8f);
     }
 }
