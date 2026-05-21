@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour{
 
         CheckArrival();
 
-        // Prüfen ob wir am Ziel vorbei sind UND nah dran:
+        // Prüfen, ob wir am Ziel vorbei sind UND nah dran:
         CheckOvershoot();
     }
 
