@@ -17,7 +17,7 @@ public class TowerProjectile : MonoBehaviour{
             enemyComponent?.DealDamage(Strength);
             //            ^ Nur, wenn das Objekt nicht null ist, wird diese Funktion aufgerufen.
             Destroy(gameObject);
-            // Todo deal damage to enemy;
+ 
         }
         
         transform.Translate(0,0,distanceThisFrame);
