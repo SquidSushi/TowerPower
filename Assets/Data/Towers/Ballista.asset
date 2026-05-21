@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42f3f3271e691d45bb847377ce384b7, type: 3}
   m_Name: Ballista
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
-  FireRate: 1
-  Range: 1
-  Projectile: {fileID: 0}
+  FireRate: 4
+  Range: 4
+  Projectile: {fileID: 7888900495313882554, guid: a5972b6ca13bfb04cbde5a163c87f83b, type: 3}
