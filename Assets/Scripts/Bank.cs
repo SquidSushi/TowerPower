@@ -1,0 +1,34 @@
+using UnityEngine;
+using UnityEngine.Events;
+
+public class Bank : MonoBehaviour{
+    public static UnityEvent<int> AddMoney = new();
+    public static UnityEvent<int> SpendMoney = new();
+
+    public static Bank Instance{ private set; get; } = null;
+
+    public int Balance{ get; private set; } = 100;
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        if (Instance == null){
+            Instance = this;
+        }
+        else{
+            Debug.LogError("A second Bank has been instantiated.");
+            Destroy(this);
+            return;
+        }
+        AddMoney.AddListener(OnAddMoney);
+        SpendMoney.AddListener(OnSpendMoney);
+    }
+
+    private void OnAddMoney(int amount){
+        Balance += amount;
+    }
+
+    private void OnSpendMoney(int amount){
+        Balance -= amount;
+    }
+}
