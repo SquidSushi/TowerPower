@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TowerSetterCursor : MonoBehaviour
-{
+public class TowerSetterCursor : MonoBehaviour{
+    public GameObject TowerToPlace;
     void Update()
     {
         RaycastHit hit;
@@ -10,9 +10,24 @@ public class TowerSetterCursor : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit)){
             Transform objectHit = hit.transform;
-            transform.position = Vector3.Lerp(transform.position, objectHit.position, Time.deltaTime*40);
-            //transform.position = objectHit.position;
-            
+
+            float lerpFactor = 40;
+            transform.position = Vector3.Lerp(transform.position, objectHit.position, Time.deltaTime * lerpFactor);
+            if (Mouse.current.leftButton.wasPressedThisFrame){
+                AttemptPlacingTower(objectHit);
+            }
+        }
+    }
+
+    private void AttemptPlacingTower(Transform objectHit){
+        var socket = objectHit.GetComponent<TowerSocket>();
+        if (socket){
+            if (!socket.HeldTower){
+                socket.HeldTower = Instantiate(TowerToPlace, socket.transform.position, Quaternion.identity);
+            }
+            else{
+                Debug.Log("Tower placement failed because socket is occupied.");
+            }
         }
     }
 }
