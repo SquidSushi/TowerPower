@@ -2,16 +2,11 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour{
     // TODO Priority
-    // TODO Werte wie Stärke, Schussrate, Reichweite etc.
 
-    public float Range;
-
-    public float FireRate;
-
+    public TowerStats Stats;
+    
     [SerializeField] private float _attackCooldown;
-
-    public GameObject Projectile;
-
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){ }
 
@@ -34,7 +29,7 @@ public class Tower : MonoBehaviour{
 
     private Enemy AcquireFirstTarget(){
         // Todo: Mit Layern Kollisionserkennung optimieren.
-        var collidersInRange = Physics.OverlapSphere(transform.position, Range,  LayerMask.GetMask("Enemies"));
+        var collidersInRange = Physics.OverlapSphere(transform.position, Stats.Range,  LayerMask.GetMask("Enemies"));
         Enemy targetCandidate = null;
         // Erstmal suchen wir den nächstbesten Enemy
         foreach (var collider in collidersInRange){
@@ -61,15 +56,15 @@ public class Tower : MonoBehaviour{
     }
 
     private void Shoot(Enemy target){
-        var newProjectile = Instantiate(Projectile, transform.position, Quaternion.identity);
+        var newProjectile = Instantiate(Stats.Projectile, transform.position, Quaternion.identity);
         var projectilePosition = newProjectile.transform.position;
         projectilePosition.y = target.transform.position.y;
         newProjectile.transform.position = projectilePosition;
         newProjectile.transform.LookAt(target.transform.position);
-        _attackCooldown = 1 / Mathf.Max(FireRate, 0.001f);
+        _attackCooldown = 1 / Mathf.Max(Stats.FireRate, 0.001f);
     }
 
     void OnDrawGizmos(){
-        Gizmos.DrawWireSphere(transform.position, Range);
+        Gizmos.DrawWireSphere(transform.position, Stats.Range);
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4917012080254160410}
   - component: {fileID: 3336403591865273625}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: Ballista
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,10 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109014069a0690543a92261d5b299998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  Range: 5
-  FireRate: 4
+  Stats: {fileID: 11400000, guid: 50bfdf3d175a46d4b82fa89751c4a28a, type: 2}
   _attackCooldown: 0
-  Projectile: {fileID: 7888900495313882554, guid: a5972b6ca13bfb04cbde5a163c87f83b, type: 3}
 --- !u!1001 &3726840264862620221
 PrefabInstance:
   m_ObjectHideFlags: 0
