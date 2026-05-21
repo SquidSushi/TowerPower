@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42f3f3271e691d45bb847377ce384b7, type: 3}
   m_Name: MGTurret
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
-  FireRate: 100
-  Range: 30
+  FireRate: 10
+  Range: 4
   Projectile: {fileID: 8127682581484390003, guid: 60a8596c546bb7144aa4d01c66b86071, type: 3}
+  Spread: 10

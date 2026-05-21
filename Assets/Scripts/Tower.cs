@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Tower : MonoBehaviour{
     // TODO Priority
@@ -61,6 +63,9 @@ public class Tower : MonoBehaviour{
         projectilePosition.y = target.transform.position.y;
         newProjectile.transform.position = projectilePosition;
         newProjectile.transform.LookAt(target.transform.position);
+        var Spread = (Random.value * 2 - 1) * Stats.Spread;
+        newProjectile.transform.Rotate(0,Spread,0);
+
         _attackCooldown = 1 / Mathf.Max(Stats.FireRate, 0.001f);
     }
 

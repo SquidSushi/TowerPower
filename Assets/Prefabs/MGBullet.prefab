@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3750da32316d3478dbb944e4c18592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerProjectile
-  Speed: 40
-  RemainingLifeTime: 1
+  Speed: 10
+  RemainingLifeTime: 0.5
   Strength: 1
 --- !u!1001 &3773160545419267872
 PrefabInstance:
