@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class Bank : MonoBehaviour{
     public static UnityEvent<int> AddMoney = new();
     public static UnityEvent<int> SpendMoney = new();
 
     public static Bank Instance{ private set; get; } = null;
-
+    
     public int Balance{ get; private set; } = 100;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,6 +24,19 @@ public class Bank : MonoBehaviour{
         }
         AddMoney.AddListener(OnAddMoney);
         SpendMoney.AddListener(OnSpendMoney);
+    }
+
+    private void Update(){
+        //Developer cheats
+        if (Keyboard.current.rightShiftKey.isPressed){
+            if (Keyboard.current.rKey.wasPressedThisFrame){
+                AddMoney.Invoke(100);
+            } //ctrl + r adds 100 money
+
+            if (Keyboard.current.pKey.wasPressedThisFrame){
+                SpendMoney.Invoke(100);
+            } //ctrl + p spends money
+        }
     }
 
     private void OnAddMoney(int amount){
