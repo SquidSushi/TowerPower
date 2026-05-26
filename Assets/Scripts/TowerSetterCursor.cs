@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class TowerSetterCursor : MonoBehaviour{
     public int SelectedTurretIndex = 0;
     public List<GameObject> PlaceableTurrets;
+    public List<GameObject> Holograms;
 
     void Update(){
         TowerSelection();
@@ -25,42 +26,48 @@ public class TowerSetterCursor : MonoBehaviour{
 
     private void TowerSelection(){
         if (Keyboard.current.digit1Key.wasPressedThisFrame){
-            SelectedTurretIndex = 0;
+            SwapToTurret(0);
         }
 
         if (Keyboard.current.digit2Key.wasPressedThisFrame){
-            SelectedTurretIndex = 1;
+            SwapToTurret(1);
         }
 
         if (Keyboard.current.digit3Key.wasPressedThisFrame){
-            SelectedTurretIndex = 2;
+            SwapToTurret(2);
         }
 
         if (Keyboard.current.digit4Key.wasPressedThisFrame){
-            SelectedTurretIndex = 3;
+            SwapToTurret(3);
         }
 
         if (Keyboard.current.digit5Key.wasPressedThisFrame){
-            SelectedTurretIndex = 4;
+            SwapToTurret(4);
         }
 
         if (Keyboard.current.digit6Key.wasPressedThisFrame){
-            SelectedTurretIndex = 5;
+            SwapToTurret(5);
         }
 
         if (Keyboard.current.digit7Key.wasPressedThisFrame){
-            SelectedTurretIndex = 6;
+            SwapToTurret(6);
         }
 
         if (Keyboard.current.digit8Key.wasPressedThisFrame){
-            SelectedTurretIndex = 7;
+            SwapToTurret(7);
         }
 
         if (Keyboard.current.digit9Key.wasPressedThisFrame){
-            SelectedTurretIndex = 8;
+            SwapToTurret(8);
         }
 
         SelectedTurretIndex %= PlaceableTurrets.Count;
+    }
+
+    private void SwapToTurret(int index){
+        Holograms[SelectedTurretIndex].SetActive(false);
+        SelectedTurretIndex = index;
+        Holograms[SelectedTurretIndex].SetActive(true);
     }
 
     private void AttemptPlacingTower(Transform objectHit){
