@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class Bank : MonoBehaviour{
     public static UnityEvent<int> AddMoney = new();
     public static UnityEvent<int> SpendMoney = new();
+    public static UnityEvent<int> MoneyChanged = new();
 
     public static Bank Instance{ private set; get; } = null;
     
@@ -24,6 +25,7 @@ public class Bank : MonoBehaviour{
         }
         AddMoney.AddListener(OnAddMoney);
         SpendMoney.AddListener(OnSpendMoney);
+        MoneyChanged.Invoke(Balance);
     }
 
     private void Update(){
@@ -41,9 +43,11 @@ public class Bank : MonoBehaviour{
 
     private void OnAddMoney(int amount){
         Balance += amount;
+        MoneyChanged.Invoke(Balance);
     }
 
     private void OnSpendMoney(int amount){
         Balance -= amount;
+        MoneyChanged.Invoke(Balance);
     }
 }

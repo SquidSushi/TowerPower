@@ -13,7 +13,7 @@ public class TowerSetterCursor : MonoBehaviour{
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
 
-        if (Physics.Raycast(ray, out hit)){
+        if (Physics.Raycast(ray, out hit,40,LayerMask.GetMask("Default"))){
             Transform objectHit = hit.transform;
 
             float lerpFactor = 40;
@@ -71,15 +71,36 @@ public class TowerSetterCursor : MonoBehaviour{
     }
 
     private void AttemptPlacingTower(Transform objectHit){
+        if (!_fundsCheck()){
+            return; //Es hat an Geld gefehlt. Hier könnte ein Sound abspielen :)
+        }
+
+       
         var socket = objectHit.GetComponent<TowerSocket>();
         if (socket){
             if (!socket.HeldTower){
                 socket.HeldTower = Instantiate(PlaceableTurrets[SelectedTurretIndex], socket.transform.position,
                     Quaternion.identity);
+                int cost = socket.HeldTower.GetComponent<Tower>().Stats.Price;
+                Bank.SpendMoney.Invoke(cost);
             }
             else{
                 Debug.Log("Tower placement failed because socket is occupied.");
             }
         }
+    }
+
+    private bool _fundsCheck(){
+        int currentBalance = Bank.Instance.Balance;
+        int cost = PlaceableTurrets[SelectedTurretIndex].GetComponent<Tower>().Stats.Price;
+        return currentBalance >= cost;
+        /* ^Das ist die stark verkürzte Version von:
+        if (currentBalance >= cost){
+            return true;
+        }
+        else{
+            return false;
+        }
+        */
     }
 }

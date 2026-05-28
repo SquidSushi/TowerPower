@@ -230,7 +230,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   Speed: 1
   TurnSpeed: 720
-  _health: 500
+  _health: 10
 --- !u!135 &8599413025647392468
 SphereCollider:
   m_ObjectHideFlags: 0

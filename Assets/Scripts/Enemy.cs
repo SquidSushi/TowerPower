@@ -96,6 +96,7 @@ public class Enemy : MonoBehaviour{
                   $"Incoming Damage: {incomingDamage}, Health before: {_health}, Health after: {wouldBeHealth}");
         if (wouldBeHealth == 0){
             Destroy(gameObject);
+            Bank.AddMoney.Invoke(50); //TODO Remove magic number
             return;
         }
 
