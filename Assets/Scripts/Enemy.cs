@@ -1,22 +1,23 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour{
     public EnemyPathNode Target;
 
     public float DistanceTravelled{ get; private set; }
-
-    public float Speed;
+    public EnemyStats Stats;
     public float TurnSpeed = 1080;
 
     [SerializeField]
-    private int _health = 10;
+    private int _currentHealth = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         if (Target != null){
             transform.LookAt(Target.transform.position);
         }
+        _currentHealth = Stats.MaxHP;
     }
 
     // Update is called once per frame
@@ -61,7 +62,7 @@ public class Enemy : MonoBehaviour{
     }
 
     private void MoveForward(){
-        float stepThisFrame = (Speed * Time.deltaTime); // Die Distanz, die wir diesen Frame laufen werden
+        float stepThisFrame = (Stats.Speed * Time.deltaTime); // Die Distanz, die wir diesen Frame laufen werden
         DistanceTravelled += stepThisFrame; // Im "Schrittzähler" vermerken
         transform.Translate(Vector3.forward * stepThisFrame); //Vorwärts bewegen um diese Distanz
     }
@@ -88,18 +89,18 @@ public class Enemy : MonoBehaviour{
     }
 
     public void DealDamage(int incomingDamage){
-        int wouldBeHealth = _health - incomingDamage;
+        int wouldBeHealth = _currentHealth - incomingDamage;
         if (wouldBeHealth < 0){
             wouldBeHealth = 0;
         }
         Debug.Log($"Enemy took damage. " +
-                  $"Incoming Damage: {incomingDamage}, Health before: {_health}, Health after: {wouldBeHealth}");
+                  $"Incoming Damage: {incomingDamage}, Health before: {_currentHealth}, Health after: {wouldBeHealth}");
         if (wouldBeHealth == 0){
             Destroy(gameObject);
-            Bank.AddMoney.Invoke(50); //TODO Remove magic number
+            Bank.AddMoney.Invoke(Stats.Bounty);
             return;
         }
 
-        _health = wouldBeHealth;
+        _currentHealth = wouldBeHealth;
     }
 }
