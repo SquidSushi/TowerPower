@@ -115,10 +115,8 @@ public class TowerSetterCursor : MonoBehaviour{
             if (Physics.Raycast(ray, out hit, 40, LayerMask.GetMask("Default"))){
                 Transform objectHit = hit.transform;
                 var socket = objectHit.GetComponent<TowerSocket>();
-                if (socket){
-                    if (!socket.HeldTower){
-                        socketIsFree = true;
-                    }
+                if (socket?.HeldTower){
+                    socketIsFree = true;
                 }
             }
         }
