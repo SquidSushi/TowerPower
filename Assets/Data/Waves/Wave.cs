@@ -12,7 +12,7 @@ public class Wave : ScriptableObject{
     }
 
     public float GetTopmostDelay(){
-        return Batches[0].DelayPerEnemy;
+        return Batches[0].Amount <= 1 ? Batches[0].EndDelay : Batches[0].DelayPerEnemy;
     }
 
     public void Pop(){
