@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b3e60d6914ab64097bf7e1efb4a0dd, type: 3}
   m_Name: StrongEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  Speed: 0
-  MaxHP: 0
-  Bounty: 0
+  Speed: 0.15
+  MaxHP: 500
+  Bounty: 30

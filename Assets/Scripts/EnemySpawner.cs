@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour{
-    public GameObject EnemyPrefab; //TODO Mehrere Prefabs
+    public List<GameObject> SpawnableEnemies; //TODO Mehrere Prefabs
     // Todo Waves
     private float _nextSpawnTime;
     public EnemyPathNode FirstNode;
@@ -16,8 +17,13 @@ public class EnemySpawner : MonoBehaviour{
     {
         if (_nextSpawnTime <= Time.time){ // Wenn der nächste Spawn-Zeitpunkt vergangen ist:
             _nextSpawnTime = Time.time + 2f;
-            var newSpawn = Instantiate(EnemyPrefab, transform.position, Quaternion.identity);
+            var newSpawn = Instantiate(SpawnableEnemies[_randomEnemySelection()], transform.position, Quaternion.identity);
             newSpawn.GetComponent<Enemy>().Target = FirstNode;
         }
+    }
+
+    private int _randomEnemySelection(){
+        int selectedEnemyIndex = Random.Range(0, SpawnableEnemies.Count);
+        return selectedEnemyIndex;
     }
 }

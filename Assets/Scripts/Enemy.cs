@@ -100,7 +100,6 @@ public class Enemy : MonoBehaviour{
             Bank.AddMoney.Invoke(Stats.Bounty);
             return;
         }
-
         _currentHealth = wouldBeHealth;
     }
 }
