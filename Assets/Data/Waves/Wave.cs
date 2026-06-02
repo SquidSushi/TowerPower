@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Wave", menuName = "Scriptable Objects/Wave")]
 public class Wave : ScriptableObject{
-    public List<WaveBatch> Batches;
+    [SerializeField] List<WaveBatch> Batches;
     public int Reward;
 
     public GameObject GetTopMostEnemy(){
