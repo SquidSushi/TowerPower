@@ -3,17 +3,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TowerSetterCursor : MonoBehaviour{
+    private static readonly int hologramShaderProperty_Blocked = Shader.PropertyToID("_Blocked");
     public int SelectedTurretIndex = 0;
     public List<GameObject> PlaceableTurrets;
     public List<GameObject> Holograms;
 
     void Update(){
         TowerSelection();
-
+        
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
 
-        if (Physics.Raycast(ray, out hit,40,LayerMask.GetMask("Default"))){
+        if (Physics.Raycast(ray, out hit, 40, LayerMask.GetMask("Default"))){
             Transform objectHit = hit.transform;
 
             float lerpFactor = 40;
@@ -22,6 +23,7 @@ public class TowerSetterCursor : MonoBehaviour{
                 AttemptPlacingTower(objectHit);
             }
         }
+        _shaderUpdate();
     }
 
     private void TowerSelection(){
@@ -75,7 +77,7 @@ public class TowerSetterCursor : MonoBehaviour{
             return; //Es hat an Geld gefehlt. Hier könnte ein Sound abspielen :)
         }
 
-       
+
         var socket = objectHit.GetComponent<TowerSocket>();
         if (socket){
             if (!socket.HeldTower){
@@ -102,5 +104,28 @@ public class TowerSetterCursor : MonoBehaviour{
             return false;
         }
         */
+    }
+
+    private void _shaderUpdate(){
+        bool enoughMoney = _fundsCheck();
+        bool socketIsFree = false;
+        RaycastHit hit;
+        if (enoughMoney){
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
+            if (Physics.Raycast(ray, out hit, 40, LayerMask.GetMask("Default"))){
+                Transform objectHit = hit.transform;
+                var socket = objectHit.GetComponent<TowerSocket>();
+                if (socket){
+                    if (!socket.HeldTower){
+                        socketIsFree = true;
+                    }
+                }
+            }
+        }
+        bool finalBlocked = enoughMoney && socketIsFree;
+        var allMeshRenders = Holograms[SelectedTurretIndex].GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in allMeshRenders){
+            meshRenderer.material.SetFloat(hologramShaderProperty_Blocked, finalBlocked?0:1);
+        }
     }
 }
