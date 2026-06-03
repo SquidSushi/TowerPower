@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   Speed: 0.15
   MaxHP: 500
-  Bounty: 30
+  Bounty: 7

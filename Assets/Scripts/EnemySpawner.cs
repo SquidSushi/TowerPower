@@ -1,12 +1,15 @@
 using System.Collections.Generic;
-using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour{
     public List<Wave> Waves;
     private float _nextSpawnTime;
     public EnemyPathNode FirstNode;
     private bool _waveIsRunning = false;
+    public int CurrentWave{ get; private set; } = 0;
+    public static UnityEvent<int> WaveStarted = new();
+    public static UnityEvent<int> WaveFinished = new();
 
     // Todo: WaveCounter hinzufügen
     // Todo: Setze _waveIsRunning false, sobald die Wave zu ende ist. Hinweis: ihr werdet auch die Wave Klasse bearbeiten müssen.
@@ -21,8 +24,11 @@ public class EnemySpawner : MonoBehaviour{
 
     [ContextMenu("Start wave")] // Erlaubt es aus dem Unity Editor heraus diese Funktion aufzurufen.
     public void StartWave(){
+        if (_waveIsRunning || Waves.Count <= 0) return;
         _waveIsRunning = true;
         _nextSpawnTime = Time.time;
+        CurrentWave++;
+        WaveStarted.Invoke(CurrentWave);
     }
 
     // Update is called once per frame
@@ -44,6 +50,7 @@ public class EnemySpawner : MonoBehaviour{
                         _waveIsRunning = false; //Der Aktivitätsstatus geht aus
                         Bank.AddMoney.Invoke(Waves[0].Reward); // Geld wird ausgezahlt
                         Waves.RemoveAt(0); // Wave wird entfernt
+                        WaveFinished.Invoke(CurrentWave);
                     }
                 }
             }
