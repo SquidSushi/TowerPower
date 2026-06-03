@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour{
     // Update is called once per frame
     void Update(){
         if (_waveIsRunning){ // Wenn eine Wave am laufen ist:
-            if (_nextSpawnTime < Time.time && !Waves[0].IsEmpty()){ // Wenn der Zeitpunkt vergangen ist
+            if (_nextSpawnTime < Time.time && !Waves[0].IsEmpty()){ // Wenn der Zeitpunkt vergangen ist UND Wave noch etwas zum spawnen hat
                 var newestEnemy =
                     Instantiate(Waves[0].GetTopMostEnemy(), transform.position,
                         Quaternion.identity); // Spawne den neusten Enemy
@@ -38,12 +38,12 @@ public class EnemySpawner : MonoBehaviour{
             }
             else{
                 if (Waves[0].IsEmpty()){
-                    // Finde raus wie viele Gegner noch leben.
+                    // Finde, ob Gegner noch leben.
                     var anyEnemy = GameObject.FindAnyObjectByType<Enemy>();
-                    if (anyEnemy == null){
-                        _waveIsRunning = false;
-                        Bank.AddMoney.Invoke(Waves[0].Reward);
-                        Waves.RemoveAt(0);
+                    if (anyEnemy == null){ //wenn nicht
+                        _waveIsRunning = false; //Der Aktivitätsstatus geht aus
+                        Bank.AddMoney.Invoke(Waves[0].Reward); // Geld wird ausgezahlt
+                        Waves.RemoveAt(0); // Wave wird entfernt
                     }
                 }
             }
