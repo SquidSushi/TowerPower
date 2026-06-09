@@ -6,6 +6,7 @@ public class TowerProjectile : MonoBehaviour{
 
     public float RemainingLifeTime;
     public int Strength = 2;
+    public DamageType DamageType = DamageType.Kinematic;
     void FixedUpdate(){
         LifeTimeHandling();
 
@@ -14,7 +15,7 @@ public class TowerProjectile : MonoBehaviour{
         bool hasHit = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, distanceThisFrame + Single.Epsilon, LayerMask.GetMask("Enemies"));
         if (hasHit){
             var enemyComponent = hit.collider.GetComponent<Enemy>();
-            enemyComponent?.DealDamage(Strength);
+            enemyComponent?.DealDamage(Strength, this.DamageType);
             //            ^ Nur, wenn das Objekt nicht null ist, wird diese Funktion aufgerufen.
             Destroy(gameObject);
  

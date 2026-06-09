@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: 001
   m_EditorClassIdentifier: Assembly-CSharp::Wave
   Batches:
+  - EnemyType: {fileID: 4491988489366578562, guid: 4cebc5ce7a449ac4f9b48bc145b0c7a8, type: 3}
+    Amount: 1
+    DelayPerEnemy: 2.5
+    EndDelay: 2
   - EnemyType: {fileID: 4491988489366578562, guid: 8f524b3f1bb76fc44871fcef1d62c307, type: 3}
     Amount: 10
     DelayPerEnemy: 2.5

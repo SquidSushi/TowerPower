@@ -231,6 +231,7 @@ MonoBehaviour:
   Stats: {fileID: 11400000, guid: a2e59e8b6c6ed3f42bdf12aaae8b98bb, type: 2}
   TurnSpeed: 720
   _currentHealth: 10
+  Immunities: 00000000
 --- !u!135 &8599413025647392468
 SphereCollider:
   m_ObjectHideFlags: 0

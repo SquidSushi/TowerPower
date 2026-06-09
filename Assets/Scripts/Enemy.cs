@@ -1,6 +1,5 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Enemy : MonoBehaviour{
     public EnemyPathNode Target;
@@ -9,14 +8,16 @@ public class Enemy : MonoBehaviour{
     public EnemyStats Stats;
     public float TurnSpeed = 1080;
 
-    [SerializeField]
-    private int _currentHealth = 10;
+    [SerializeField] private int _currentHealth = 10;
+
+    public List<DamageType> Immunities;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start(){
         if (Target != null){
             transform.LookAt(Target.transform.position);
         }
+
         _currentHealth = Stats.MaxHP;
     }
 
@@ -25,7 +26,7 @@ public class Enemy : MonoBehaviour{
         if (Target == null) return;
 
         RotateByRightDot(GetTargetRightDot());
-        
+
         MoveForward();
 
         CheckArrival();
@@ -88,11 +89,18 @@ public class Enemy : MonoBehaviour{
         return rightDot;
     }
 
-    public void DealDamage(int incomingDamage){
+    public void DealDamage(int incomingDamage, DamageType damageType){
+        if (Immunities.Contains(damageType)){
+            Debug.Log("Immune hit!");
+            return;
+        }
+        
+
         int wouldBeHealth = _currentHealth - incomingDamage;
         if (wouldBeHealth < 0){
             wouldBeHealth = 0;
         }
+
         Debug.Log($"Enemy took damage. " +
                   $"Incoming Damage: {incomingDamage}, Health before: {_currentHealth}, Health after: {wouldBeHealth}");
         if (wouldBeHealth == 0){
@@ -100,6 +108,7 @@ public class Enemy : MonoBehaviour{
             Bank.AddMoney.Invoke(Stats.Bounty);
             return;
         }
+
         _currentHealth = wouldBeHealth;
     }
 }
